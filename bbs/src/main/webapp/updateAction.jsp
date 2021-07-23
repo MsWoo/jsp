@@ -64,8 +64,10 @@ request.setCharacterEncoding("UTF-8");
 		script.println("location.href='bbs.jsp'");
 		script.println("</script>");
 	}
-	//Bbs bbs = new BbsDAO().getBbs(bbsID);
-	if(!userID.equals(bbs.getUserID()) && (Integer) session.getAttribute("admin") == 0){
+	Bbs bbs2 = new BbsDAO().getBbs(bbsID);
+	if(!userID.equals(bbs2.getUserID()) && (Integer) session.getAttribute("admin") == 0){
+		System.out.println(userID);
+		System.out.println(bbs2.getUserID());
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('권한이 없습니다')");

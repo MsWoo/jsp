@@ -101,15 +101,23 @@
 						<td colspan = "2"><%= bbs.getBbsDate().substring(0, 11) + bbs.getBbsDate().substring(11, 13) + "시" + bbs.getBbsDate().substring(14, 16) + "분" %></td>
 					</tr>
 					<tr>
-						<td>내용</td>
-						<td colspan = "2" style ="min-height: 200px; text-align: left;"><%= bbs.getBbsContent() %></td>
+						<td>조회수</td>
+						<td colspan = "2"><%= bbs.getBbsUCount() %></td>
 					</tr>
-					<%
+					<tr>
+						<td>좋아요</td>
+						<td colspan = "2"><%= bbs.getBbsLikey() %></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td style ="min-height: 200px; text-align: left;"><%= bbs.getBbsContent() %></td>
+						<br>
+						
+						<%
 					String real = "C:\\JSP\\workspaceee\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\bbs\\bbsUpload";
 					File viewFile = new File(real+"\\"+bbsID+"사진.jpg");
 					if(viewFile.exists()){ 
 					%>
-						<tr>
 							<td colspan="6"><br><br><img src = "bbsUpload/<%=bbsID %>사진.jpg" border="300px" width="300px" height="300px"><br><br>
 					<% 
 					}
@@ -119,10 +127,21 @@
 					<%
 					} 
 					%>
+					</tr>
+					
 				</tbody>				
 			</table>
+			<input type="button" class="btn btn-primary" onclick="likey(bbsID);" value="추천" />
+			<button type="button" class="btn btn-primary" onclick="<% new BbsDAO().likey(bbsID); System.out.println("likey22"); %>">추천2</button>
+			<script>
+			function likey(id){
+				new BbsDAO().likey(id);
+				System.out.println("likey");
+			}
+			</script>
 			<a href = "bbs.jsp" class="btn btn-primary">목록</a>
 			<%
+				new BbsDAO().count(bbsID);
 			 	if( (userID != null && userID.equals(bbs.getUserID())) || admin == 1) {
 			 %>
 					 <a href ="update.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">수정</a>

@@ -7,6 +7,9 @@ public class Bbs {
 	private String bbsDate;
 	private String bbsContent;
 	private int bbsAvailable;
+	private int bbsUCount;
+	private int bbsLikey;
+	
 	public int getBbsID() {
 		return bbsID;
 	}
@@ -43,5 +46,16 @@ public class Bbs {
 	public void setBbsAvailable(int bbsAvailable) {
 		this.bbsAvailable = bbsAvailable;
 	}
-	
+	public int getBbsUCount() {
+		return bbsUCount;
+	}
+	public void setBbsUCount(int bbsUCount) {
+		this.bbsUCount = bbsUCount;
+	}
+	public int getBbsLikey() {
+		return bbsLikey;
+	}
+	public void setBbsLikey(int bbsLikey) {
+		this.bbsLikey = bbsLikey;
+	}
 }

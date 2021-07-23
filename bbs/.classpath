@@ -14,6 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.25.jar"/>
-	<classpathentry kind="lib" path="C:/Users/USER/eclipse/java-2020-12/eclipse/cos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/jsp/bbs/src/main/webapp/WEB-INF/lib/cos.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
