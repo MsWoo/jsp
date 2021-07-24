@@ -131,14 +131,8 @@
 					
 				</tbody>				
 			</table>
-			<input type="button" class="btn btn-primary" onclick="likey(bbsID);" value="추천" />
 			<button type="button" class="btn btn-primary" onclick="<% new BbsDAO().likey(bbsID); System.out.println("likey22"); %>">추천2</button>
-			<script>
-			function likey(id){
-				new BbsDAO().likey(id);
-				System.out.println("likey");
-			}
-			</script>
+
 			<a href = "bbs.jsp" class="btn btn-primary">목록</a>
 			<%
 				new BbsDAO().count(bbsID);
