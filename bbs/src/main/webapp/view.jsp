@@ -4,6 +4,9 @@
 	<%@ page import = "java.io.File" %>
 	<%@page import ="bbs.Bbs" %>
 	<%@page import ="bbs.BbsDAO" %>
+	<%@page import ="comment.Comment" %>
+	<%@page import ="comment.CommentDAO" %>
+	<%@page import ="java.util.ArrayList" %>
 	
 <!DOCTYPE html>
 <html>
@@ -13,6 +16,70 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>JSP게시판 웹 사이트</title>
 </head>
+
+<script type="text/javascript">
+ 
+        var httpRequest = null;
+        
+        // httpRequest 객체 생성
+        function getXMLHttpRequest(){
+            var httpRequest = null;
+        
+            if(window.ActiveXObject){
+                try{
+                    httpRequest = new ActiveXObject("Msxml2.XMLHTTP");    
+                } catch(e) {
+                    try{
+                        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                    } catch (e2) { httpRequest = null; }
+                }
+            }
+            else if(window.XMLHttpRequest){
+                httpRequest = new window.XMLHttpRequest();
+            }
+            return httpRequest;    
+        }
+        
+        // 댓글 등록
+        function writeCmt()
+        {
+            var form = document.getElementById("writeCommentForm");
+            
+            var board = form.comment_board.value
+            var id = form.comment_id.value
+            var content = form.comment_content.value;
+            
+            if(!content)
+            {
+                alert("내용을 입력하세요.");
+                return false;
+            }
+            else
+            {    
+                var param="comment_board="+board+"&comment_id="+id+"&comment_content="+content;
+                    
+                httpRequest = getXMLHttpRequest();
+                httpRequest.onreadystatechange = checkFunc;
+                httpRequest.open("POST", "CommentWriteAction.co", true);    
+                httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=EUC-KR'); 
+                httpRequest.send(param);
+            }
+        }
+        
+        function checkFunc(){
+            if(httpRequest.readyState == 4){
+                // 결과값을 가져온다.
+                var resultText = httpRequest.responseText;
+                if(resultText == 1){ 
+                    document.location.reload(); // 상세보기 창 새로고침
+                }
+            }
+        }
+    
+    </script>
+
+
+
 <body>
 	<%
 		String userID = null;
@@ -111,9 +178,9 @@
 					<tr>
 						<td>내용</td>
 						<td style ="min-height: 200px; text-align: left;"><%= bbs.getBbsContent() %></td>
-						<br>
+
 						
-						<%
+					<%
 					String real = "C:\\JSP\\workspaceee\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\bbs\\bbsUpload";
 					File viewFile = new File(real+"\\"+bbsID+"사진.jpg");
 					if(viewFile.exists()){ 
@@ -131,7 +198,8 @@
 					
 				</tbody>				
 			</table>
-			<button type="button" class="btn btn-primary" onclick="<% new BbsDAO().likey(bbsID); System.out.println("likey22"); %>">추천2</button>
+
+			<a href ="likey.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">추천</a>
 
 			<a href = "bbs.jsp" class="btn btn-primary">목록</a>
 			<%
@@ -144,7 +212,51 @@
 			 	}
 			 %>
 		</div>
+		
+		
+		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+		<tbody>
+		<%
+		ArrayList<Comment> list = new CommentDAO().getList(bbsID);
+		if(list.size() != 0){
+			for(int i = 0; i<list.size(); i++){
+		%>		
+					<tr>
+						<td><%= list.get(i).getWriter() %></td>
+						<td><%= list.get(i).getContent() %></td>
+					</tr>
+		<%
+			}
+		}
+		%>
+		
+		</tbody>				
+		</table>
+		
+		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+
+				<tbody>
+					<tr>
+					<td style = "width: 20%;"><div><%= (String) session.getAttribute("userID") %></div></td>
+					
+					<td><div><textarea id="comment_content" name="comment_content"></textarea></div></td>
+					
+					<td><div><p><a href="#" onclick="comment()">[댓글등록]</a></div></td>
+						
+					</tr>
+				</tbody>				
+		</table>
+
+		
 	</div>
+	
+	<script>
+		function comment(){
+			location.href="comment.jsp?bbsID=<%= bbsID %>&&writer=<%= (String) session.getAttribute("userID") %>&&content="+document.getElementById("comment_content").value;
+		}
+	</script>
+	
+	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
 		
 	</script>
