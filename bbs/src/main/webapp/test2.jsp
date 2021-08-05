@@ -91,7 +91,7 @@ for(int i = 0; i<list.size(); i++){
     
     
 <script type="text/JavaScript" src="http://code.jquery.com/jquery-1.7.min.js"></script>    
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=앱키&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38e09686761a47687ac5b433471d5364&libraries=services"></script>
 <script>
 
 var markers = [];
@@ -194,6 +194,11 @@ function displayPlaces(places) {
 
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
+            };
+            
+            itemEl.onclick =  function () {
+            	map.setLevel(3);
+            	map.setCenter(marker.getPosition());
             };
 
             itemEl.onmouseout =  function () {

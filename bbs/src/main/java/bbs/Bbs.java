@@ -9,6 +9,8 @@ public class Bbs {
 	private int bbsAvailable;
 	private int bbsUCount;
 	private int bbsLikey;
+	private String Lnt;
+	private String Lng;
 	
 	public int getBbsID() {
 		return bbsID;
@@ -57,5 +59,17 @@ public class Bbs {
 	}
 	public void setBbsLikey(int bbsLikey) {
 		this.bbsLikey = bbsLikey;
+	}
+	public String getLnt() {
+		return Lnt;
+	}
+	public void setLnt(String Lnt) {
+		this.Lnt = Lnt;
+	}
+	public String getLng() {
+		return Lng;
+	}
+	public void setLng(String Lng) {
+		this.Lng = Lng;
 	}
 }

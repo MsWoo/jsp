@@ -38,9 +38,18 @@ request.setCharacterEncoding("UTF-8");
 	String fileName = multi.getFilesystemName("fileName");
 	String bbsTitle = multi.getParameter("bbsTitle");
 	String bbsContent = multi.getParameter("bbsContent");
+	String LntLng = multi.getParameter("marketLatLng");
+	String temp = LntLng.substring(1, LntLng.length()-1);
+
+	String[] spl = temp.split(", ");
+	String Lnt = spl[0];
+	String Lng = spl[1];
+
 
 	bbs.setBbsTitle(bbsTitle);
 	bbs.setBbsContent(bbsContent);
+	bbs.setLnt(Lnt);
+	bbs.setLng(Lng);
 
 	String userID = null;
 	if(session.getAttribute("userID") != null){ 
@@ -63,7 +72,7 @@ request.setCharacterEncoding("UTF-8");
 			script.println("</script>");
 		}else{
 			BbsDAO bbsDAO = new BbsDAO();
-			int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+			int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent(), bbs.getLnt(), bbs.getLng());
 		
 			if (result == -1) {
 				PrintWriter script = response.getWriter();

@@ -74,6 +74,12 @@
 					<tr>
 						<td><input type="file" name="fileName"></td>
 					</tr>
+					<tr>	
+						<td>식당 정보</td>
+						<input type = "hidden" name ="markethidden">
+						<td><input id ="market" class = "form-control" name="marketLatLng" placeholder="식당 이름" maxlength = "50"></td>
+						<td><input type="button" id="button1" onclick="button1_click();" value="버튼1" /></td>
+					</tr>
 				</tbody>				 
 			</table>
 				<input type = "submit" class ="btn btn-primary pull-right" value="글쓰기">
@@ -85,4 +91,12 @@
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>
+<script>
+function button1_click() {
+	const market = document.getElementById('market').value;
+	console.log(market);
+	window.open("select.jsp?market="+market, "식당 이름", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );
+
+}
+</script>
 </html>

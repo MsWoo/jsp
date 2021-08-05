@@ -15,6 +15,7 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>JSP게시판 웹 사이트</title>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38e09686761a47687ac5b433471d5364&libraries=services"></script>
 </head>
 
 <body>
@@ -131,6 +132,10 @@
 					<%
 					} 
 					%>
+					<td>
+					<div id="map" style="width:500px;height:400px;"></div>
+					</td>
+					
 					</tr>
 					
 				</tbody>				
@@ -193,7 +198,25 @@
 		}
 	</script>
 	
-	
+	<script>
+		var container = document.getElementById('map');
+		var lnt = "<%=bbs.getLnt()%>";
+		var lng = "<%=bbs.getLng()%>";
+		var options = {
+			center: new kakao.maps.LatLng(lnt, lng),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+		
+		var marker = new kakao.maps.Marker({ 
+		    // 지도 중심좌표에 마커를 생성합니다 
+		    position: new kakao.maps.LatLng(lnt, lng)
+		}); 
+		// 지도에 마커를 표시합니다
+		marker.setMap(map);
+		
+	</script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
 		
 	</script>
