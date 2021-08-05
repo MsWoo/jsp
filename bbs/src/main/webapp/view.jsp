@@ -202,6 +202,7 @@
 		var container = document.getElementById('map');
 		var lnt = "<%=bbs.getLnt()%>";
 		var lng = "<%=bbs.getLng()%>";
+		alert("test");
 		var options = {
 			center: new kakao.maps.LatLng(lnt, lng),
 			level: 3
