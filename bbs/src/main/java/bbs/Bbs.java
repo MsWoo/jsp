@@ -9,7 +9,8 @@ public class Bbs {
 	private int bbsAvailable;
 	private int bbsUCount;
 	private int bbsLikey;
-	private String Lnt;
+	private String name;
+	private String Lat;
 	private String Lng;
 	
 	public int getBbsID() {
@@ -60,11 +61,17 @@ public class Bbs {
 	public void setBbsLikey(int bbsLikey) {
 		this.bbsLikey = bbsLikey;
 	}
-	public String getLnt() {
-		return Lnt;
+	public String getName() {
+		return name;
 	}
-	public void setLnt(String Lnt) {
-		this.Lnt = Lnt;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getLat() {
+		return Lat;
+	}
+	public void setLat(String Lat) {
+		this.Lat = Lat;
 	}
 	public String getLng() {
 		return Lng;

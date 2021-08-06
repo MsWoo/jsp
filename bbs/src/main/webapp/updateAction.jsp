@@ -37,10 +37,19 @@ request.setCharacterEncoding("UTF-8");
 	String fileName = multi.getFilesystemName("fileName");
 	String bbsTitle = multi.getParameter("bbsTitle");
 	String bbsContent = multi.getParameter("bbsContent");
+	String marketName = multi.getParameter("marketName");
+	String LatLng = multi.getParameter("marketLatLng");
+	String temp = LatLng.substring(1, LatLng.length()-1);
+
+	String[] spl = temp.split(", ");
+	String Lat = spl[0];
+	String Lng = spl[1];
 	
 	bbs.setBbsTitle(bbsTitle);
 	bbs.setBbsContent(bbsContent);
-
+	bbs.setName(marketName);
+	bbs.setLat(Lat);
+	bbs.setLng(Lng);
 	
 	String userID = null;
 	if(session.getAttribute("userID") != null){
@@ -83,7 +92,11 @@ request.setCharacterEncoding("UTF-8");
 			script.println("</script>");
 		}else{
 			BbsDAO bbsDAO = new BbsDAO();
-			int result = bbsDAO.update(bbsID, bbs.getBbsTitle(), bbs.getBbsContent());
+			if(bbs.getName().equals("")){
+				bbs.setLat("0");
+				bbs.setLng("0");
+			}
+			int result = bbsDAO.update(bbsID, bbs.getBbsTitle(), bbs.getBbsContent(), bbs.getName(), bbs.getLat(), bbs.getLng());
 			if (result == -1) {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");

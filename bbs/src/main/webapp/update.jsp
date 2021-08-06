@@ -95,6 +95,12 @@
 					<tr>
 						<td><input type="file" name="fileName"></td>
 					</tr>
+					<tr>	
+						<td>식당 정보</td>
+						<td><input id ="market" class = "form-control" name="marketName" placeholder="식당 이름" maxlength = "50" value = "<%= bbs.getName() %>"/></td>
+						<td><input type="button" id="button1" onclick="findMarket();" value="검색" /></td>
+						<td><input type="hidden" id="latlng" name="marketLatLng" value = "<%= "("+bbs.getLat()+", "+bbs.getLng()+")" %>"/></td>
+					</tr>
 				</tbody>				
 			</table>
 			<input type="submit" class="btn btn-primary pull-right" value="글수정">
@@ -106,4 +112,11 @@
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>
+<script>
+function findMarket() {
+	const market = document.getElementById('market').value;
+	window.open("select.jsp?market="+market, "식당 이름", "width=270, height=480, toolbar=no, menubar=no, scrollbars=no, resizable=no" );
+
+}
+</script>
 </html>

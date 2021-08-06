@@ -133,7 +133,13 @@
 					} 
 					%>
 					<td>
+					<%
+			 		if(!(bbs.getLat().equals("0") && bbs.getLng().equals("0"))) {
+			 		%>
 					<div id="map" style="width:500px;height:400px;"></div>
+					<%
+			 		}
+			 		%>
 					</td>
 					
 					</tr>
@@ -201,12 +207,12 @@
 	<script>
 		var container = document.getElementById('map');
 		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-		
-		var lnt = "<%=bbs.getLnt()%>";
+		var name = "<%=bbs.getName()%>";
+		var lat = "<%=bbs.getLat()%>";
 		var lng = "<%=bbs.getLng()%>";
 
 		var options = {
-			center: new kakao.maps.LatLng(lnt, lng),
+			center: new kakao.maps.LatLng(lat, lng),
 			level: 3
 		};
 
@@ -215,8 +221,8 @@
 		var marker = new kakao.maps.Marker({ 
 		    // 지도 중심좌표에 마커를 생성합니다 
 		    map : map,
-		    title: "마커 타이틀을 획득하셨습니다.",
-		    position: new kakao.maps.LatLng(lnt, lng)
+		    title: name,
+		    position: new kakao.maps.LatLng(lat, lng)
 		
 		}); 
 		

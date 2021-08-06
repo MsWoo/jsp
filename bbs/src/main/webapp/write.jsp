@@ -76,8 +76,9 @@
 					</tr>
 					<tr>	
 						<td>식당 정보</td>
-						<td><input id ="market" class = "form-control" name="marketLatLng" placeholder="식당 이름" maxlength = "50" /></td>
-						<td><input type="button" id="button1" onclick="button1_click();" value="버튼1" /></td>
+						<td><input id ="market" class = "form-control" name="marketName" placeholder="식당 이름" maxlength = "50" value=""/></td>
+						<td><input type="button" id="button1" onclick="findMarket();" value="검색" /></td>
+						<td><input type="hidden" id="latlng" name="marketLatLng" value="(0, 0)"/></td>
 					</tr>
 				</tbody>				 
 			</table>
@@ -91,10 +92,9 @@
 	<script src="js/bootstrap.js"></script>
 </body>
 <script>
-function button1_click() {
+function findMarket() {
 	const market = document.getElementById('market').value;
-	console.log(market);
-	window.open("select.jsp?market="+market, "식당 이름", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );
+	window.open("select.jsp?market="+market, "식당 이름", "width=270, height=480, toolbar=no, menubar=no, scrollbars=no, resizable=no" );
 
 }
 </script>
