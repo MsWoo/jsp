@@ -200,9 +200,11 @@
 	
 	<script>
 		var container = document.getElementById('map');
+		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+		
 		var lnt = "<%=bbs.getLnt()%>";
 		var lng = "<%=bbs.getLng()%>";
-		alert("test");
+
 		var options = {
 			center: new kakao.maps.LatLng(lnt, lng),
 			level: 3
@@ -212,8 +214,31 @@
 		
 		var marker = new kakao.maps.Marker({ 
 		    // 지도 중심좌표에 마커를 생성합니다 
+		    map : map,
+		    title: "마커 타이틀을 획득하셨습니다.",
 		    position: new kakao.maps.LatLng(lnt, lng)
+		
 		}); 
+		
+		(function(marker, title) {
+			
+            kakao.maps.event.addListener(marker, 'mouseover', function() {
+                displayInfowindow(marker, title);
+            });
+            
+            kakao.maps.event.addListener(marker, 'mouseout', function() {
+                infowindow.close();
+            });
+            
+		})(marker, marker.getTitle());
+
+		function displayInfowindow(marker, title) {
+		    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+		    infowindow.setContent(content);
+		    infowindow.open(map, marker);
+		}
+
 		// 지도에 마커를 표시합니다
 		marker.setMap(map);
 		

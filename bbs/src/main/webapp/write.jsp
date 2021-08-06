@@ -76,8 +76,7 @@
 					</tr>
 					<tr>	
 						<td>식당 정보</td>
-						<input type = "hidden" name ="markethidden">
-						<td><input id ="market" class = "form-control" name="marketLatLng" placeholder="식당 이름" maxlength = "50"></td>
+						<td><input id ="market" class = "form-control" name="marketLatLng" placeholder="식당 이름" maxlength = "50" /></td>
 						<td><input type="button" id="button1" onclick="button1_click();" value="버튼1" /></td>
 					</tr>
 				</tbody>				 

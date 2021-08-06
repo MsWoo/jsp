@@ -115,6 +115,10 @@ function displayPlaces(places) {
 
         (function(marker, title) {
             itemEl.onclick =  function () {
+            	var input = opener.document.createElement('input');
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('value', title);
+                opener.document.body.appendChild(input);
                 opener.document.getElementById("market").value = marker.getPosition();
                 window.close();
 
