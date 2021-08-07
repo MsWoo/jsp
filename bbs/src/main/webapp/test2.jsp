@@ -46,6 +46,8 @@
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 </style>
+<script type="text/JavaScript" src="http://code.jquery.com/jquery-1.7.min.js"></script>    
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38e09686761a47687ac5b433471d5364&libraries=services"></script>
 </head>
 <body>
 <div class="map_wrap">
@@ -53,9 +55,9 @@
 	<div id="menu_wrap" class="bg_white">
        	<div class="option">
            	<div>
-               	<form onsubmit="searchPlaces(); return false;">
-                   	키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
-                   	<button type="submit">검색하기</button> 
+               	<form action="test2.jsp" method="get">
+                   	키워드 : <input type="text" value="" id="keyword" name="keyword" size="15"> 
+                   	<button type="submit">get</button> 
                	</form>
            	</div>
        	</div>
@@ -67,32 +69,59 @@
 
 
 
+<p>관련 게시글 목록</p>
 
 <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-		<tbody>
-	
-<%BbsDAO bbsDAO = new BbsDAO();
-ArrayList<Bbs> list = bbsDAO.getList(1);
-for(int i = 0; i<list.size(); i++){
-%>
+<thead>
 <tr>
-	<td><%=list.get(i).getBbsID()%></td>
-	<td><%=list.get(i).getBbsTitle()%></td>
-	<td><%=list.get(i).getBbsContent()%></td>
-	<td><input type="button" value="버튼" class= "checkBtn"></td>
+	<th style="background-color: #eeeeee; text-align: center;">제목</th>
+	<th style="background-color: #eeeeee; text-align: center;">작성자</th>
+	<th style="background-color: #eeeeee; text-align: center;">조회수</th>
+	<th style="background-color: #eeeeee; text-align: center;">좋아요</th>
+</tr>
+</thead>
+<%
+BbsDAO bbsDAO = new BbsDAO();
+ArrayList<Bbs> list = bbsDAO.getAllList();
+String keyword = request.getParameter("keyword");
+
+if(!keyword.equals("")){
+for(int i = 0; i<list.size(); i++){
+	String Title = list.get(i).getBbsTitle();
+	String Content = list.get(i).getBbsContent();
+
+	if (Title.contains(keyword) || Content.contains(keyword)){
+%>
+<tbody>
+<tr>
+	<td><a href = "view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%=list.get(i).getBbsTitle()%></a></td>
+	<td><%=list.get(i).getUserID()%></td>
+	<td><%=list.get(i).getBbsUCount()%></td>
+	<td><%=list.get(i).getBbsLikey()%></td>
 </tr>
 <%
+	}
+}
 }
 %>
 </tbody>
 </table>
     
     
-    
-    
-<script type="text/JavaScript" src="http://code.jquery.com/jquery-1.7.min.js"></script>    
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38e09686761a47687ac5b433471d5364&libraries=services"></script>
 <script>
+function getParameterByName(name) { 
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); 
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), 
+	results = regex.exec(location.search); 
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " ")); 
+}
+
+$(document).ready(function(){
+//	console.log(getParameterByName('keyword'));
+//	alert(getParameterByName('keyword'));
+	var keyword = getParameterByName('keyword');
+	ps.keywordSearch( keyword, placesSearchCB); 
+});
 
 var markers = [];
 
@@ -120,11 +149,6 @@ searchPlaces();
 function searchPlaces() {
 
     var keyword = document.getElementById('keyword').value;
-
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
-        return false;
-    }
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch( keyword, placesSearchCB); 
